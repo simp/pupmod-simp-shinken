@@ -1,0 +1,105 @@
+Puppet Module: shinken
+
+= DESCRIPTION =
+
+Shinken is a utility for monitoring services, devices, hardware, etc.,
+on any system. It comes with a web UI which allows for easy access and
+nicely formatted display of system health.
+
+= USAGE =
+
+In order to get Shinken setup, follow something similar to the below
+steps, using example nodes and users.
+
+Please note that the following setup will instantiate an snmp server,
+as snmp can be very useful in monitoring system data.
+
+  class { "snmpd::stock::server":
+    monitorUser_auth_phrase => "snmpd_pass",
+    monitorUser_priv_phrase => "snmpd_pass",
+    adminUser_auth_phrase   => "snmpd_pass",
+    adminUser_priv_phrase   => "snmpd_pass",
+  }
+
+  # Setup the shinken server and configuration files
+  class { "shinken":
+    web_ui_auth_secret => "some_auth_ui_string"
+  }
+
+  # Now add some users to be able to log into Shinken
+  # user1 will be an admin user, user 2 will not
+  shinken::add_contact { 'user1':
+    use                 => 'generic-contact',
+    email               => 'user1@example.com',
+    is_admin            => '1',
+    can_submit_commands => '1'
+  }
+  shinekn::add_contact { 'user2':
+    use                 => 'generic-contact',
+    email               => 'user2@example.com',
+  }
+
+  # Next we add a contact group to add administrators to. This
+  # can be useful for emailed alerts and notifications
+  shinken::add_contactgroup { 'admins':
+    members => ['user1']
+  }
+
+  # Now we are ready to add some hosts to start monitoring on. We will
+  # add our shinken server and another server called bar.
+  shinken::add_host { "$::hostname":
+    contact_groups => ['admins'],
+    use            => 'linux-server'
+  }
+  shinken::add_host { 'bar':
+    address        => 'bar.example.com',
+    host_name      => 'bar',
+    contact_groups => ['admins'],
+    use            => 'linux-server'
+  }
+
+  # Lastly, we are ready to start declaring the services that we want
+  # to monitor. This is done by using the pre-defined commands that
+  # either the user creates, or come by default with Shinken. To see a
+  # complete list of these, either check /etc/shinken/commands.cfg or
+  # check the offical Shinken documentation.
+  #
+  # In this example, we will monitor http, and check the local disk of
+  # both of the previously defined hosts.
+  shinken::add_service { "$::hostname-http":
+    check_command => 'check_http'
+  }
+  shinken::add_service { "$::hostname-linux-disks":
+    check_command => 'check_local_disk!10!4!/'
+  }
+
+  shinken::add_service { "bar-check-http":
+    check_command => 'check_http',
+    host_name     => ['bar']
+  }
+  shinken::add_service { "bar-linux-disks":
+    check_command => 'check_local_disk!10!4!/',
+    host_name     => ['bar']
+  }
+
+And now you're done! Shinken will start monitoring both http and the
+disk usage on the two specified systems.
+
+= NOTES =
+
+ * As of right now, Shinken will not successfully use mysql as the
+   backend database to store user dashboards in the WebUI. MySQL
+   support is expected in future releases of pupmod-shinken.
+
+ * As a security measure, pupmod-shinken places the Shinken web UI
+   inside of Apache by default. There are sometimes issues with https
+   redirects that have been noted by the SIMP team and are actively
+   being worked on.
+
+ * Shinken is dependent on DNS lookups being succesful, so it is
+   important that DNS is properly configured on your system, or that
+   IP addresses be used in place of FQDNs where necessary.
+
+= SEE ALSO =
+
+The Shinken web page: http://www.shinken-monitoring.org/

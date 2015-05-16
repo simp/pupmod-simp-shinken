@@ -1,0 +1,30 @@
+$USER1$=/usr/lib/shinken/plugins
+$USER2$=public
+
+#-- Location of the plugins
+$PLUGINSDIR$=/usr/lib64/nagios/plugins
+
+#- Active Directory and LDAP
+$DOMAINUSER$=your_ldap_bind_dn
+$DOMAINPASSWORD$=your_ldap_bind_user_pw
+$LDAPBASE$=your_ldap_base_dn
+
+#- MSSQL credentials
+$MSSQLUSER$=someuser
+$MSSQLPASSWORD$=somepassowrd
+
+#-- Mysql credentials
+$MYSQLUSER$=root
+$MYSQLPASSWORD$=mysql_user_password
+
+#-- vSphere (ESX) credentials
+$VCENTER$=vcenter.mydomain.com
+$VCENTERLOGIN$=someuser
+$VCENTERPASSWORD$=somepassowrd
+
+
+#-- Discovery
+# default snmp community
+$SNMPCOMMUNITYREAD$=PUBLIC
+# what to discover by default
+$NMAPTARGETS$=localhost www.google.fr

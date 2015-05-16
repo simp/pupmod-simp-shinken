@@ -1,0 +1,114 @@
+# File managed by puppet.
+# Any changes to this file will be lost.
+
+define service {
+    use                               <%= @use %>
+<%
+  t_host_names = Array.new
+  @host_name.each do |t_host_name|
+    t_host_names.push(t_host_name)
+  end
+-%>
+    host_name                         <%= t_host_names.join(",") %>
+    service_description               <%= @service_description %>
+    check_command                     <%= @check_command %>
+<% if ! ( @hostgroup_name.eql?("") ) then -%>
+    hostgroup_name                    <%= @hostgroup_name %>
+<% end -%>
+<% if ! ( @display_name.eql?("") ) then -%>
+    display_name                      <%= @display_name %>
+<% end -%>
+<% if ! ( @servicegroups.eql?("") ) then -%>
+<%
+  t_servicegroups = Array.new
+  @servicegroups.each do |t_servicegroup|
+    t_servicegroups.push(t_servicegroup)
+  end
+-%>
+    servicegroups                     <%= t_servicegroups.join(",") %>
+<% end -%>
+<% if ! ( @is_volatile.eql?("") ) then -%>
+    is_volatile                       <%= @is_volatile %>
+<% end -%>
+<% if ! ( @initial_state.eql?("") ) then -%>
+    initial_state                     <%= @initial_state %>
+<% end -%>
+<% if ! ( @max_check_attempts.eql?("") ) then -%>
+    max_check_attempts                <%= @max_check_attempts %>
+<% end -%>
+<% if ! ( @check_interval.eql?("") ) then -%>
+    check_interval                    <%= @check_interval %>
+<% end -%>
+<% if ! ( @retry_interval.eql?("") ) then -%>
+    retry_interval                    <%= @retry_interval %>
+<% end -%>
+<% if ! ( @active_checks_enabled.eql?("") ) then -%>
+    active_checks_enabled             <%= @active_checks_enabled %>
+<% end -%>
+<% if ! ( @passive_checks_enabled.eql?("") ) then -%>
+    passive_checks_enabled            <%= @passive_checks_enabled %>
+<% end -%>
+<% if ! ( @check_period.eql?("") ) then -%>
+    check_period                      <%= @check_period %>
+<% end -%>
+<% if ! ( @obsess_over_service.eql?("") ) then -%>
+    obsess_over_service               <%= @obsess_over_service %>
+<% end -%>
+<% if ! ( @check_freshness.eql?("") ) then -%>
+    check_freshness                   <%= @check_freshness %>
+<% end -%>
+<% if ! ( @freshness_threshold.eql?("") ) then -%>
+    freshness_threshold               <%= @freshness_threshold %>
+<% end -%>
+<% if ! ( @event_handler.eql?("") ) then -%>
+    event_handler                     <%= @event_handler %>
+<% end -%>
+<% if ! ( @event_handler_enabled.eql?("") ) then -%>
+    event_handler_enabled             <%= @event_handler_enabled %>
+<% end -%>
+<% if ! ( @low_flap_threshold.eql?("") ) then -%>
+    low_flap_threshold                <%= @low_flap_threshold %>
+<% end -%>
+<% if ! ( @high_flap_threshold.eql?("") ) then -%>
+    high_flap_threshold               <%= @high_flap_threshold %>
+<% end -%>
+<% if ! ( @flap_detection_enabled.eql?("") ) then -%>
+    flap_detection_enabled            <%= @flap_detection_enabled %>
+<% end -%>
+<% if ! ( @process_perf_data.eql?("") ) then -%>
+    process_perf_data                 <%= @process_perf_data %>
+<% end -%>
+<% if ! ( @retain_status_information.eql?("") ) then -%>
+    @retain_status_information        <%= @retain_status_information %>
+<% end -%>
+<% if ! ( @retain_nonstatus_information.eql?("") ) then -%>
+    retain_nonstatus_information      <%= @retain_nonstatus_information %>
+<% end -%>
+<% if ! ( @notification_interval.eql?("") ) then -%>
+    notification_interval             <%= @notification_interval %>
+<% end -%>
+<% if ! ( @notification_options.eql?("") ) then -%>
+    notification_options              <%= @notification_options %>
+<% end -%>
+<% if ! ( @notifications_enabled.eql?("") ) then -%>
+    notifications_enabled             <%= @notifications_enabled %>
+<% end -%>
+<% if ! ( @contacts.eql?("") ) then -%>
+<%
+  t_contacts = Array.new
+  @contacts.each do |t_contact|
+    t_contacts.push(t_contact)
+  end
+-%>
+    contacts                          <%= t_contacts.join(",") %>
+<% end -%>
+<% if ! ( @contact_groups.eql?("") ) then -%>
+<%
+  t_contact_groups = Array.new
+  @contact_groups.each do |t_contact_group|
+    t_contact_groups.push(t_contact_group)
+  end
+-%>
+    contact_groups                     <%= t_contact_groups.join(",") %>
+<% end -%>
+}

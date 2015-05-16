@@ -1,0 +1,79 @@
+define contact {
+       contact_name        <%= @contact_name %>
+<% if @password then -%>
+       password            <%= @password %>
+<% end -%>
+<% if @contact_alias then -%>
+       alias               <%= @contact_alias %>
+<% end -%>
+       email               <%= @email %>
+       use                 <%= @use %>
+       is_admin            <%= @is_admin %>
+       can_submit_commands <%= @can_submit_commands %>
+<% if @contactgroups then -%>
+<%
+  t_contactgroups = Array.new
+  @contactgroups.each do |t_contactgroup|
+    t_contactgroups.push(t_contactgroup)
+  end
+-%>
+       contactgroups        <%= t_contactgroups.join(",") %>
+<% end -%>
+<% if @host_notification_commands then -%>
+<%
+  t_host_notification_commands = Array.new
+  @host_notification_commands.each do |t_host_notification_command|
+    t_host_notification_commands.push(t_host_notification_command)
+  end
+-%>
+       host_notification_commands     <%= t_host_notification_commands.join(",") %>
+<% end -%>
+<% if @host_notification_options then -%>
+<%     
+  t_host_notification_options = Array.new
+  @host_notification_options.each do |t_host_notification_option|
+    t_host_notification_options.push(t_host_notification_option)
+  end
+-%>
+       host_notification_options      <%= t_host_notification_options.join(",") %>
+<% end -%>
+<% if @host_notification_period then -%>
+       host_notification_period       <%= @host_notification_period %>
+<% end -%>
+<% if @host_notifications_enabled then -%>
+       host_notifications_enabled     <%= @host_notifications_enabled %>
+<% end -%>
+<% if @service_notification_commands then -%>
+<%     
+  t_service_notification_commands = Array.new
+  @service_notification_commands.each do |t_service_notification_command|
+    t_service_notification_commands.push(t_service_notification_command)
+  end
+-%>
+       service_notification_commands  <%= t_service_notification_commands.join(",") %>
+<% end -%>
+<% if @service_notification_options then -%>
+<% 
+  t_service_notification_options = Array.new
+  @service_notification_options.each do |t_service_notification_option|
+    t_service_notification_options.push(t_service_notification_option)
+  end
+-%>
+       service_notification_options   <%= t_service_notification_options.join(",") %>
+<% end -%>
+<% if @service_notification_period then -%>
+       service_notification_period    <%= @service_notification_period %>
+<% end -%>
+<% if @service_notifications_enabled then -%>
+       service_notifications_enabled  <%= @service_notifications_enabled %>
+<% end -%>
+<% if @min_business_impact %>
+       min_business_impact            <%= @min_business_impact %>
+<% end -%>
+<% if @retain_status_information then -%>
+       retain_status_information      <%= @retain_status_information %>
+<% end -%>
+<% if @retain_nonstatus_information then -%>
+       retain_nonstatus_information   <%= @retain_nonstatus_information %>
+<% end -%>
+}

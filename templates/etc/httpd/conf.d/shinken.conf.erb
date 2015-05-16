@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^/ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+# Set global proxy timeouts
+<Proxy <%= @shinken_proxy %>>
+  ProxySet connectiontimeout=5 timeout=90
+</Proxy>
+
+<Location />
+  SSLRequireSSL
+  SSLVerifyClient <%= @ssl_verify_client %>
+
+  ProxyPass <%= @shinken_proxy %>/
+  ProxyPassReverse <%= @shinken_proxy %>/
+</Location>

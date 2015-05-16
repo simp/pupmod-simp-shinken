@@ -1,0 +1,11 @@
+define contactgroup {
+       contactgroup_name    <%= @contactgroup_name %>
+       alias                <%= @alias %>
+<%
+t_members = Array.new
+@members.each do |member|
+  t_members.push(member)
+end
+-%>
+       members             <%= t_members.join(",") %>
+}
