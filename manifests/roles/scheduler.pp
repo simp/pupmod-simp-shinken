@@ -59,12 +59,12 @@ class shinken::roles::scheduler(
   package { 'shinken-scheduler': ensure => 'latest' }
 
   file { '/etc/shinken/schedulerd.ini':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/schedulerd.ini.erb'),
-    notify   => Service['shinken-scheduler']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/schedulerd.ini.erb'),
+    notify  => Service['shinken-scheduler']
   }
 
   service { 'shinken-scheduler':

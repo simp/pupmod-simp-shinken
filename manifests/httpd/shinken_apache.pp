@@ -54,10 +54,10 @@ class shinken::httpd::shinken_apache(
     "$httpd_includes/limit",
     "$httpd_includes/limit_int",
   ]:
-    ensure  => 'directory',
-    owner   => 'root',
-    group   => 'apache',
-    mode    => '0640'
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'apache',
+    mode   => '0640'
   }
 
   $l_apache_auth = apache_auth($l_method_acl['method'])

@@ -56,12 +56,12 @@ class shinken::roles::receiver(
   package { 'shinken-receiver': ensure => 'latest' }
 
   file { '/etc/shinken/receiverd.ini':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/receiverd.ini.erb'),
-    notify   => Service['shinken-receiver']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/receiverd.ini.erb'),
+    notify  => Service['shinken-receiver']
   }
 
   service { 'shinken-receiver':

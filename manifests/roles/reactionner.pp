@@ -70,12 +70,12 @@ class shinken::roles::reactionner(
   package { 'shinken-reactionner': ensure => 'latest' }
 
   file { '/etc/shinken/reactionnerd.ini':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/reactionnerd.ini.erb'),
-    notify   => Service['shinken-reactionner']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/reactionnerd.ini.erb'),
+    notify  => Service['shinken-reactionner'],
   }
 
   service { 'shinken-reactionner':

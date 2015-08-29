@@ -73,12 +73,12 @@ class shinken::roles::poller(
   package { 'shinken-poller': ensure => 'latest' }
 
   file { '/etc/shinken/pollerd.ini':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/pollerd.ini.erb'),
-    notify   => Service['shinken-poller']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/pollerd.ini.erb'),
+    notify  => Service['shinken-poller']
   }
 
   service { 'shinken-poller':

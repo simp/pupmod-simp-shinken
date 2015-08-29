@@ -34,7 +34,7 @@
 #
 define shinken::add_contactgroup (
   $members           ,
-  $alias             = $name,
+  $shinken_alias     = $name,
   $contactgroup_name = $name
 ) {
 

@@ -132,10 +132,10 @@ class shinken::nagios(
   package { 'nagios-plugins-wave': ensure => 'latest' }
 
   file { '/etc/shinken/nagios.cfg':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/nagios.cfg.erb')
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/nagios.cfg.erb')
   }
 }

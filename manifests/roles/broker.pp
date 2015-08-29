@@ -61,12 +61,12 @@ class shinken::roles::broker(
   package { 'shinken-broker': ensure => 'latest' }
 
   file { '/etc/shinken/brokerd.ini':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/brokerd.ini.erb'),
-    notify   => Service['shinken-broker']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/brokerd.ini.erb'),
+    notify  => Service['shinken-broker']
   }
 
   service { 'shinken-broker':

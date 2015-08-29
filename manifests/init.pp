@@ -75,7 +75,7 @@ class shinken(
   package { 'python-ldap': ensure => 'latest' }
 
   pam::access::manage { 'nagios':
-    users => 'nagios',
+    users   => 'nagios',
     origins => ['ALL']
   }
 
@@ -105,43 +105,43 @@ class shinken(
   include 'shinken::roles::scheduler'
 
   file { '/etc/shinken/commands.cfg':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640'
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0640'
   }
 
   concat_build { 'contactgroups':
-    order   => ['*.group'],
-    target  => '/etc/shinken/contactgroups.cfg',
-    notify  => Service['shinken-arbiter']
+    order  => ['*.group'],
+    target => '/etc/shinken/contactgroups.cfg',
+    notify => Service['shinken-arbiter']
   }
 
   file { '/etc/shinken/resource.cfg':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/resource.cfg.erb'),
-    notify   => Service['shinken-arbiter']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/resource.cfg.erb'),
+    notify  => Service['shinken-arbiter']
   }
 
   file { '/etc/shinken/servicegroups.cfg':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/servicegroups.cfg.erb'),
-    notify   => Service['shinken-arbiter']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/servicegroups.cfg.erb'),
+    notify  => Service['shinken-arbiter']
   }
 
   file { '/etc/shinken/shinken-specific.cfg':
-    ensure   => 'file',
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0640',
-    content  => template('shinken/shinken-specific.cfg.erb'),
-    notify   => Service['shinken-arbiter', 'shinken-broker']
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('shinken/shinken-specific.cfg.erb'),
+    notify  => Service['shinken-arbiter', 'shinken-broker']
   }
 
   include 'shinken::nagios'
